@@ -48,7 +48,7 @@ const EventsPage: FC = () => {
         <option value={1}>Saturday, June 3rd, 2023</option>
         <option value={2}>Sunday, June 4th, 2023</option>
       </select>
-      <div className='grid grid-cols-1 gap-3'>
+      <div className='grid grid-cols-1 gap-4'>
         {schedules[scheduleIndex].map(event => {
           const isBookmarked = bookmarks.includes(event.slug)
           return (
@@ -62,7 +62,7 @@ const EventsPage: FC = () => {
               )}
             >
               <input type='checkbox' />
-              <div className='collapse-title flex space-x-2 text-xl font-medium after:mt-4'>
+              <div className='collapse-title flex space-x-2 pr-9 text-xl font-medium after:mt-4'>
                 <div>
                   <div>{event.title}</div>
                   <div

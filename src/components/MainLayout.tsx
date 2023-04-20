@@ -9,6 +9,7 @@ import {
 } from 'react-icons/hi2'
 import clsx from 'clsx'
 import { useLocalStorage } from 'usehooks-ts'
+import app_logo_src from 'assets/images/app_logo.gif'
 
 type IconType = typeof HiOutlineHome
 
@@ -54,6 +55,9 @@ const MainLayout: FC = () => {
     (verified: boolean) => (event: MouseEvent<HTMLButtonElement>) => {
       event.preventDefault()
       setIsOfAge(verified)
+      if (verified === false) {
+        history.back()
+      }
     }
 
   if (isOfAge === false) {
@@ -69,17 +73,14 @@ const MainLayout: FC = () => {
           you, please do not continue.
         </div>
         <div className='flex w-full space-x-3'>
-          <button
-            className='btn flex-grow'
-            onClick={handleAgeConfirmation(true)}
-          >
-            Yes
+          <button className='btn w-1/2' onClick={handleAgeConfirmation(true)}>
+            Enter
           </button>
           <button
-            className='btn-outline btn flex-grow'
+            className='btn-outline btn w-1/2'
             onClick={handleAgeConfirmation(false)}
           >
-            No
+            Back
           </button>
         </div>
         <div className='absolute bottom-3 text-2xl uppercase'>
@@ -92,17 +93,19 @@ const MainLayout: FC = () => {
 
   return (
     <div className='flex h-[100dvh] w-full flex-col'>
-      <div className='navbar fixed z-50 bg-neutral px-5 text-neutral-content shadow-md'>
-        <div className='text-3xl uppercase text-primary'>
+      <div className='navbar fixed z-50 bg-neutral px-3 text-neutral-content shadow-md'>
+        {/* <div className='scale-y-110 text-3xl uppercase text-primary'>
           <span className='font-extrabold'>Size</span>
           <span className='font-thin'>Con</span>
-        </div>
+        </div> */}
+        <img className='m-auto h-12' src={app_logo_src} alt='SizeCon 2023' />
       </div>
       <div className='navbar' />
       <div className='mx-auto my-0 w-full max-w-screen-lg p-4'>
         {<Outlet />}
-        <div className='mt-4 w-full text-center text-sm'>
-          Copyright &copy; 2023
+        <div className='mt-4 w-full text-center'>
+          <div className='text-sm'>Copyright &copy; 2023 SizeCon</div>
+          <div className='text-xs'>All rights reserved.</div>
         </div>
       </div>
       <div className='navbar' />

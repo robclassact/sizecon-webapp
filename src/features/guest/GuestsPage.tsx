@@ -106,7 +106,7 @@ const GuestsPage: FC = () => {
                 <img className='h-full' src={guest.img} alt={guest.name} />
               </figure>
               <div className='card-body w-full'>
-                <h2 className='card-title'>{guest.name}</h2>
+                <h2 className='card-title pr-9'>{guest.name}</h2>
                 <div>{guest.description}</div>
                 <div className='w-full'>
                   {guest.performances.map(perf => (
