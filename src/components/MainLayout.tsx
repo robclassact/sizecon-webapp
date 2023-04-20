@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, MouseEvent } from 'react'
 import { Outlet, useLocation, Link } from 'react-router-dom'
 import {
   HiOutlineHome,
@@ -8,6 +8,7 @@ import {
   HiOutlineBookmarkSquare
 } from 'react-icons/hi2'
 import clsx from 'clsx'
+import { useLocalStorage } from 'usehooks-ts'
 
 type IconType = typeof HiOutlineHome
 
@@ -47,6 +48,47 @@ const routes: NavigationLink[] = [
 
 const MainLayout: FC = () => {
   const location = useLocation()
+  const [isOfAge, setIsOfAge] = useLocalStorage('isOfAge', false)
+
+  const handleAgeConfirmation =
+    (verified: boolean) => (event: MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault()
+      setIsOfAge(verified)
+    }
+
+  if (isOfAge === false) {
+    return (
+      <div className='flex h-[100dvh] w-full flex-col items-center justify-center bg-primary p-8 text-primary-content'>
+        <div className='mb-4 text-center text-3xl font-bold'>
+          ENTER ONLY IF YOU ARE OVER 18
+        </div>
+        <div className='mb-5 text-lg'>
+          Website contains content of adult nature and is only available to
+          adults. If you are under the age of 18 (or 21 in some countries), if
+          it is illegal to view such material in your jurisdiction or it offends
+          you, please do not continue.
+        </div>
+        <div className='flex w-full space-x-3'>
+          <button
+            className='btn flex-grow'
+            onClick={handleAgeConfirmation(true)}
+          >
+            Yes
+          </button>
+          <button
+            className='btn-outline btn flex-grow'
+            onClick={handleAgeConfirmation(false)}
+          >
+            No
+          </button>
+        </div>
+        <div className='absolute bottom-3 text-2xl uppercase'>
+          <span className='font-extrabold'>Size</span>
+          <span className='font-thin'>Con</span>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className='flex h-[100dvh] w-full flex-col'>
@@ -59,9 +101,12 @@ const MainLayout: FC = () => {
       <div className='navbar' />
       <div className='mx-auto my-0 w-full max-w-screen-lg p-4'>
         {<Outlet />}
+        <div className='mt-4 w-full text-center text-sm'>
+          Copyright &copy; 2023
+        </div>
       </div>
       <div className='navbar' />
-      <div className='btm-nav z-50 bg-neutral text-primary shadow-md'>
+      <div className='btm-nav z-50 bg-neutral text-primary'>
         {routes.map(nav => {
           const isMatch = location.pathname === nav.path
           return (

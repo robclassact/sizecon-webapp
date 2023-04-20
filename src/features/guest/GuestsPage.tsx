@@ -82,14 +82,14 @@ const GuestsPage: FC = () => {
         onChange={handleGuestsFilterChange}
       >
         <option value='All'>All Guests</option>
+        <option value='Bookmarked'>Bookmarked Guests</option>
         <option value='Talent'>Talents</option>
         <option value='Artist'>Artists</option>
         <option value='Writer'>Writers</option>
         <option value='Production Studio'>Production Studios</option>
         <option value='Community Group'>Community Groups</option>
-        <option value='Bookmarked'>Bookmarked Guests</option>
       </select>
-      <div className='grid auto-rows-fr grid-cols-1 gap-4 md:grid-cols-2'>
+      <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
         {filteredGuests.map(guest => {
           const isBookmarked = bookmarks.includes(guest.slug)
           return (

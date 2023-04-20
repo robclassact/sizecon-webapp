@@ -1,15 +1,29 @@
-import { FC, MouseEvent } from 'react'
-
 import schedule_06_02_2023 from 'assets/json/events_06_02_2023.json'
-import { useLocalStorage } from 'usehooks-ts'
+import schedule_06_03_2023 from 'assets/json/events_06_03_2023.json'
+import schedule_06_04_2023 from 'assets/json/events_06_04_2023.json'
 import clsx from 'clsx'
+import { ChangeEvent, FC, MouseEvent } from 'react'
 import { BsBookmarkDashFill, BsBookmarkPlus } from 'react-icons/bs'
+import { useLocalStorage } from 'usehooks-ts'
+
+const schedules = [
+  schedule_06_02_2023,
+  schedule_06_03_2023,
+  schedule_06_04_2023
+]
 
 const EventsPage: FC = () => {
+  const [scheduleIndex, setScheduleIndex] = useLocalStorage('schedule', 0)
+
   const [bookmarks, setBookmarks] = useLocalStorage<string[]>(
     'eventBookmarks',
     []
   )
+
+  const handleScheduleSelect = (event: ChangeEvent<HTMLSelectElement>) => {
+    event.preventDefault()
+    setScheduleIndex(parseInt(event.target.value))
+  }
 
   const handleBookmarkToggle =
     (item: string) => (event: MouseEvent<HTMLButtonElement>) => {
@@ -25,62 +39,35 @@ const EventsPage: FC = () => {
 
   return (
     <div>
+      <select
+        className='select-bordered select mb-4 w-full font-semibold'
+        value={scheduleIndex}
+        onChange={handleScheduleSelect}
+      >
+        <option value={0}>Firday, June 2nd, 2023</option>
+        <option value={1}>Saturday, June 3rd, 2023</option>
+        <option value={2}>Sunday, June 4th, 2023</option>
+      </select>
       <div className='grid grid-cols-1 gap-3'>
-        {schedule_06_02_2023.map(event => {
+        {schedules[scheduleIndex].map(event => {
           const isBookmarked = bookmarks.includes(event.slug)
           return (
-            // <div
-            //   key={event.slug}
-            //   className={clsx(
-            //     'card-compact card card-side relative rounded-xl shadow-md',
-            //     isBookmarked
-            //       ? 'bg-primary text-primary-content'
-            //       : 'bg-neutral text-neutral-content'
-            //   )}
-            // >
-            //   <div className='card-body'>
-            //     <h2 className='card-title'>{event.title}</h2>
-            //     <p
-            //       className={clsx(
-            //         '-mt-2 font-semibold',
-            //         isBookmarked ? 'text-neutral' : 'text-primary'
-            //       )}
-            //     >
-            //       {event.time}
-            //     </p>
-            //     <p>{event.description}</p>
-            //   </div>
-            //   <button
-            //     className={
-            //       'btn-ghost btn-square btn absolute right-0 top-0 rounded-bl-xl rounded-br-none rounded-tl-none rounded-tr-xl'
-            //     }
-            //     onClick={handleBookmarkToggle(event.slug)}
-            //     title='Bookmark'
-            //     type='button'
-            //   >
-            //     {isBookmarked ? (
-            //       <BsBookmarkDashFill className='h-6 w-6' />
-            //     ) : (
-            //       <BsBookmarkPlus className='h-6 w-6' />
-            //     )}
-            //   </button>
-            // </div>
             <div
               key={event.slug}
               className={clsx(
-                'card collapse relative',
+                'card collapse-arrow collapse relative',
                 isBookmarked
                   ? 'bg-primary text-primary-content'
                   : 'bg-neutral text-neutral-content'
               )}
             >
               <input type='checkbox' />
-              <div className='collapse-title flex space-x-2 text-xl font-medium'>
+              <div className='collapse-title flex space-x-2 text-xl font-medium after:mt-4'>
                 <div>
                   <div>{event.title}</div>
                   <div
                     className={clsx(
-                      'badge font-medium',
+                      'badge badge-sm font-medium',
                       isBookmarked ? 'text-primary' : 'badge-primary'
                     )}
                   >
