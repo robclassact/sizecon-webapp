@@ -1,6 +1,6 @@
 import guests from 'assets/json/guests.json'
 import clsx from 'clsx'
-import { ChangeEvent, FC, MouseEvent } from 'react'
+import { ChangeEvent, FC, MouseEvent, Fragment } from 'react'
 import {
   BsBookmarkDashFill,
   BsBookmarkPlus,
@@ -74,6 +74,8 @@ const GuestsPage: FC = () => {
             : guest.category === guestsFilter
         )
 
+  let prev = ''
+
   return (
     <div>
       <select
@@ -92,64 +94,73 @@ const GuestsPage: FC = () => {
       <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
         {filteredGuests.map(guest => {
           const isBookmarked = bookmarks.includes(guest.slug)
+          const addDivider = prev !== guest.category
+          prev = guest.category
           return (
-            <div
-              key={guest.slug}
-              className={clsx(
-                'card-compact card card-side relative shadow-md',
-                isBookmarked
-                  ? 'bg-primary text-primary-content'
-                  : 'bg-neutral text-neutral-content'
-              )}
-            >
-              <figure className='w-3/5'>
-                <img className='h-full' src={guest.img} alt={guest.name} />
-              </figure>
-              <div className='card-body w-full'>
-                <h2 className='card-title pr-9'>{guest.name}</h2>
-                <div>{guest.description}</div>
-                <div className='w-full'>
-                  {guest.performances.map(perf => (
-                    <div
-                      key={perf}
-                      className={clsx(
-                        'badge badge-sm mr-1 font-medium',
-                        isBookmarked ? 'text-primary' : 'badge-primary'
-                      )}
-                    >
-                      {perf}
-                    </div>
-                  ))}
+            <Fragment key={guest.slug}>
+              {addDivider ? (
+                <div className='divider text-xl uppercase'>
+                  {`${guest.category}s`}
                 </div>
-                <div className='card-actions flex-grow items-end'>
-                  {guest.websites.map(site => (
-                    <a
-                      className={clsx(
-                        'btn-outline btn-sm btn-circle btn',
-                        isBookmarked ? '' : 'btn-primary'
-                      )}
-                      key={site.link}
-                      title={site.link}
-                      href={site.link}
-                      target='_blank'
-                      rel='noreferrer'
-                    >
-                      {getWebsiteIcon(site.title)}
-                    </a>
-                  ))}
-                </div>
-              </div>
-              <button
-                className='btn-ghost btn-square btn absolute right-0 top-0 rounded-bl-xl rounded-br-none rounded-tl-none rounded-tr-xl'
-                onClick={handleBookmarkToggle(guest.slug)}
-              >
-                {isBookmarked ? (
-                  <BsBookmarkDashFill className='h-6 w-6' />
-                ) : (
-                  <BsBookmarkPlus className='h-6 w-6' />
+              ) : null}
+              <div
+                id={guest.slug}
+                className={clsx(
+                  'card-compact card card-side relative shadow-md',
+                  isBookmarked
+                    ? 'bg-primary text-primary-content'
+                    : 'bg-neutral text-neutral-content'
                 )}
-              </button>
-            </div>
+              >
+                <figure className='w-3/5'>
+                  <img className='h-full' src={guest.img} alt={guest.name} />
+                </figure>
+                <div className='card-body w-full'>
+                  <h2 className='card-title pr-9'>{guest.name}</h2>
+                  <div>{guest.description}</div>
+                  <div className='w-full'>
+                    {guest.performances.map(perf => (
+                      <div
+                        key={perf}
+                        className={clsx(
+                          'badge badge-sm mr-1 font-medium',
+                          !isBookmarked && 'badge-primary'
+                        )}
+                      >
+                        {perf}
+                      </div>
+                    ))}
+                  </div>
+                  <div className='card-actions flex-grow items-end'>
+                    {guest.websites.map(site => (
+                      <a
+                        className={clsx(
+                          'btn-sm btn-circle btn',
+                          isBookmarked ? '' : 'btn-primary'
+                        )}
+                        key={site.link}
+                        title={site.link}
+                        href={site.link}
+                        target='_blank'
+                        rel='noreferrer'
+                      >
+                        {getWebsiteIcon(site.title)}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+                <button
+                  className='btn-ghost btn-square btn absolute right-0 top-0 rounded-bl-xl rounded-br-none rounded-tl-none rounded-tr-xl'
+                  onClick={handleBookmarkToggle(guest.slug)}
+                >
+                  {isBookmarked ? (
+                    <BsBookmarkDashFill className='h-6 w-6' />
+                  ) : (
+                    <BsBookmarkPlus className='h-6 w-6' />
+                  )}
+                </button>
+              </div>
+            </Fragment>
           )
         })}
       </div>
