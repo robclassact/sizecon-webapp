@@ -3,9 +3,9 @@ import { Outlet, useLocation, Link } from 'react-router-dom'
 import {
   HiOutlineHome,
   HiOutlineCalendar,
-  HiOutlineSparkles,
+  HiOutlineSparkles
   // HiOutlineMapPin,
-  HiOutlineBookmarkSquare
+  // HiOutlineBookmarkSquare
 } from 'react-icons/hi2'
 import clsx from 'clsx'
 import { useLocalStorage } from 'usehooks-ts'
@@ -34,17 +34,17 @@ const routes: NavigationLink[] = [
     path: '/guests',
     title: 'Guests',
     icon: HiOutlineSparkles
-  },
+  }
   // {
   //   path: '/floor-map',
   //   title: 'Map',
   //   icon: HiOutlineMapPin
   // },
-  {
-    path: '/bookmarks',
-    title: 'Bookmarks',
-    icon: HiOutlineBookmarkSquare
-  }
+  // {
+  //   path: '/bookmarks',
+  //   title: 'Bookmarks',
+  //   icon: HiOutlineBookmarkSquare
+  // }
 ]
 
 const MainLayout: FC = () => {
@@ -72,12 +72,15 @@ const MainLayout: FC = () => {
           it is illegal to view such material in your jurisdiction or it offends
           you, please do not continue.
         </div>
-        <div className='flex w-full space-x-3'>
-          <button className='btn w-1/2' onClick={handleAgeConfirmation(true)}>
+        <div className='grid w-full grid-cols-2 gap-3'>
+          <button
+            className='btn col-span-1'
+            onClick={handleAgeConfirmation(true)}
+          >
             Enter
           </button>
           <button
-            className='btn-outline btn w-1/2'
+            className='btn-outline btn col-span-1'
             onClick={handleAgeConfirmation(false)}
           >
             Back
@@ -94,10 +97,6 @@ const MainLayout: FC = () => {
   return (
     <div className='flex h-[100dvh] w-full flex-col'>
       <div className='navbar fixed z-50 bg-neutral px-3 text-neutral-content shadow-md'>
-        {/* <div className='scale-y-110 text-3xl uppercase text-primary'>
-          <span className='font-extrabold'>Size</span>
-          <span className='font-thin'>Con</span>
-        </div> */}
         <img className='m-auto h-12' src={app_logo_src} alt='SizeCon 2023' />
       </div>
       <div className='navbar' />

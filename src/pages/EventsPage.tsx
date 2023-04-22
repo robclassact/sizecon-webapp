@@ -1,5 +1,5 @@
-import events_schedule from 'assets/json/events_schedule_2023.json'
-import guestsList from 'assets/json/guests.json'
+import events_schedule from 'assets/json/schedule_2023.json'
+import guestsList from 'assets/json/guests_2023.json'
 import clsx from 'clsx'
 import { ChangeEvent, FC, Fragment, MouseEvent } from 'react'
 import { BsBookmarkDashFill, BsBookmarkPlus } from 'react-icons/bs'
@@ -50,7 +50,6 @@ const EventsPage: FC = () => {
         value={eventsFilter}
         onChange={handleEventsFilterChange}
       >
-        {/* <option value={-1}>All</option> */}
         <option value='All'>All Events</option>
         <option value='Bookmarked'>Bookmarked Events</option>
         <option value='Friday, June 2nd 2023'>Friday, June 2nd 2023</option>
@@ -60,6 +59,9 @@ const EventsPage: FC = () => {
       <div className='grid grid-cols-1 gap-4'>
         {filteredEvents.map(event => {
           const isBookmarked = eventBookmarks.includes(event.slug)
+          const markedParticipant = guestBookmarks.filter(guest =>
+            event.participants.includes(guest)
+          )
           const addDivider = prev !== event.date
           prev = event.date
           return (
@@ -93,9 +95,9 @@ const EventsPage: FC = () => {
                 <div className='collapse-content text-sm'>
                   <p>{event.description}</p>
                 </div>
-                {event.participants.length > 0 ? (
+                {markedParticipant.length > 0 ? (
                   <div className='card-actions z-10 mb-4 w-full px-4'>
-                    {event.participants.map(p => (
+                    {markedParticipant.map(p => (
                       <HashLink
                         key={p}
                         className='btn-ghost btn-sm btn-circle btn'

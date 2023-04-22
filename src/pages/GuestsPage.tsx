@@ -1,4 +1,4 @@
-import guests from 'assets/json/guests.json'
+import guests from 'assets/json/guests_2023.json'
 import clsx from 'clsx'
 import { ChangeEvent, FC, MouseEvent, Fragment } from 'react'
 import {
@@ -118,19 +118,7 @@ const GuestsPage: FC = () => {
                 <div className='card-body w-full'>
                   <h2 className='card-title pr-9'>{guest.name}</h2>
                   <div>{guest.description}</div>
-                  <div className='w-full'>
-                    {guest.performances.map(perf => (
-                      <div
-                        key={perf}
-                        className={clsx(
-                          'badge badge-sm mr-1 font-medium',
-                          !isBookmarked && 'badge-primary'
-                        )}
-                      >
-                        {perf}
-                      </div>
-                    ))}
-                  </div>
+
                   <div className='card-actions flex-grow items-end'>
                     {guest.websites.map(site => (
                       <a

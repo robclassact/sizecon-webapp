@@ -116,7 +116,7 @@ const HomePage: FC = () => {
       <h2 className='mb-4 text-center text-2xl font-semibold'>
         Countdown to SizeCon 2023!
       </h2>
-      <div className='mb-4 grid auto-cols-max grid-flow-col justify-between gap-5 text-center'>
+      <div className='mb-4 grid auto-cols-max grid-flow-col justify-center gap-5 text-center'>
         <div className='rounded-box flex flex-col bg-primary p-2 text-primary-content'>
           <span className='countdown font-mono text-5xl'>
             {/* @ts-expect-errors this is part of daisyUI api. */}
