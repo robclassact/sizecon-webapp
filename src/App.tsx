@@ -1,16 +1,18 @@
-import { FC } from 'react'
-import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import MainLayout from 'components/MainLayout'
-import GuestsPage from 'pages/GuestsPage'
-import EventsPage from 'pages/EventsPage'
+import { AnimatePresence } from 'framer-motion'
 import BookmarksPage from 'pages/BooksmarksPage'
-import HomePage from 'pages/HomePage'
 import ErrorPage from 'pages/ErrorPage'
+import EventsPage from 'pages/EventsPage'
+import GuestsPage from 'pages/GuestsPage'
+import HomePage from 'pages/HomePage'
+import { FC } from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
 
 const App: FC = () => {
+  const location = useLocation()
   return (
-    <BrowserRouter>
-      <Routes>
+    <AnimatePresence mode='wait' initial={false}>
+      <Routes location={location} key={location.pathname}>
         <Route path='/' element={<MainLayout />}>
           <Route index element={<HomePage />} />
           <Route path='events' element={<EventsPage />} />
@@ -19,7 +21,7 @@ const App: FC = () => {
         </Route>
         <Route path='*' element={<ErrorPage />} />
       </Routes>
-    </BrowserRouter>
+    </AnimatePresence>
   )
 }
 

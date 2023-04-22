@@ -10,6 +10,7 @@ import {
 import clsx from 'clsx'
 import { useLocalStorage } from 'usehooks-ts'
 import app_logo_src from 'assets/images/app_logo.gif'
+import { AnimatePresence } from 'framer-motion'
 
 type IconType = typeof HiOutlineHome
 
@@ -100,13 +101,14 @@ const MainLayout: FC = () => {
         <img className='m-auto h-12' src={app_logo_src} alt='SizeCon 2023' />
       </div>
       <div className='navbar' />
-      <div className='mx-auto my-0 w-full max-w-screen-lg p-4'>
-        {<Outlet />}
+      <main className='mx-auto my-0 w-full max-w-screen-lg p-4'>
+        {/* <AnimatePresence mode='wait'>{<Outlet />}</AnimatePresence> */}
+        <Outlet />
         <div className='mt-4 w-full text-center'>
           <div className='text-sm'>Copyright &copy; 2023 SizeCon</div>
           <div className='text-xs'>All rights reserved.</div>
         </div>
-      </div>
+      </main>
       <div className='navbar' />
       <div className='btm-nav z-50 bg-neutral text-primary'>
         {routes.map(nav => {

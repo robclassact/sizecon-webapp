@@ -1,6 +1,7 @@
 import guests from 'assets/json/guests_2023.json'
 import clsx from 'clsx'
-import { ChangeEvent, FC, MouseEvent, Fragment } from 'react'
+import Page from 'components/Page'
+import { ChangeEvent, FC, Fragment, MouseEvent } from 'react'
 import {
   BsBookmarkDashFill,
   BsBookmarkPlus,
@@ -77,7 +78,7 @@ const GuestsPage: FC = () => {
   let prev = ''
 
   return (
-    <div>
+    <Page>
       <select
         className='select-bordered select mb-4 w-full font-semibold'
         value={guestsFilter}
@@ -152,7 +153,7 @@ const GuestsPage: FC = () => {
           )
         })}
       </div>
-    </div>
+    </Page>
   )
 }
 

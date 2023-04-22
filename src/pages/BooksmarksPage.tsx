@@ -1,7 +1,8 @@
+import Page from 'components/Page'
 import { FC } from 'react'
 
 const BookmarksPage: FC = () => {
-  return <div>Bookmarks</div>
+  return <Page>Bookmarks</Page>
 }
 
 export default BookmarksPage

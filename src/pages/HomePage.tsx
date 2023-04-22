@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react'
-
+import { motion } from 'framer-motion'
+import Page from 'components/Page'
 const eventStart = new Date('Jun 2 2023 09:00:00 GMT-0500').getTime()
 
 const rules = [
@@ -112,7 +113,7 @@ const HomePage: FC = () => {
   const seconds = Math.floor((countdown % (1000 * 60)) / 1000)
 
   return (
-    <div>
+    <Page>
       <h2 className='mb-4 text-center text-2xl font-semibold'>
         Countdown to SizeCon 2023!
       </h2>
@@ -200,7 +201,7 @@ const HomePage: FC = () => {
           </div>
         </label>
       </label> */}
-    </div>
+    </Page>
   )
 }
 

@@ -1,6 +1,7 @@
-import events_schedule from 'assets/json/schedule_2023.json'
 import guestsList from 'assets/json/guests_2023.json'
+import events_schedule from 'assets/json/schedule_2023.json'
 import clsx from 'clsx'
+import Page from 'components/Page'
 import { ChangeEvent, FC, Fragment, MouseEvent } from 'react'
 import { BsBookmarkDashFill, BsBookmarkPlus } from 'react-icons/bs'
 import { HashLink } from 'react-router-hash-link'
@@ -44,7 +45,7 @@ const EventsPage: FC = () => {
   let prev = ''
 
   return (
-    <div>
+    <Page>
       <select
         className='select-bordered select mb-4 w-full font-semibold'
         value={eventsFilter}
@@ -136,7 +137,7 @@ const EventsPage: FC = () => {
           )
         })}
       </div>
-    </div>
+    </Page>
   )
 }
 
